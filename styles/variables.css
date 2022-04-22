@@ -1,0 +1,10 @@
+:root {
+	--bg-color: #191A18;
+    --bg-gray: rgba(65, 65, 65, 0.8);
+	--bg-green: #21EB00;
+	
+    --text-green: #21EB00;
+	--text-gray: rgba(65, 65, 65, 0.8);
+	--text-white: #FFFFFF;
+    --text-dark: #191A18;
+}

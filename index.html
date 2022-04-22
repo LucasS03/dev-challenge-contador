@@ -1,4 +1,40 @@
-Contador
-Informe uma data
-DD/MM/AAAA
-Iniciar contagem
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Contador</title>
+	
+	<link rel="stylesheet" href="./styles/variables.css">
+	<link rel="stylesheet" href="./styles/index.css">
+</head>
+<body>
+	
+	<div class="container">
+		<div class="content">
+			<h1>Contador</h1>
+	
+			<label>Informe uma data</label>
+			<input type="date" name="final-date" id="final-date" placeholder="DD/MM/AAAA">
+			
+			<input type="submit" value="Iniciar contagem" onclick="getDate()">
+		</div>
+	</div>
+
+	<script>
+		const getDate = () => {
+			const dateValue = document.querySelector('#final-date').value;
+			
+			if(!dateValue) {
+				alert("Selecione uma data");
+				return;
+			}
+
+			const dateSelected = new Date(dateValue);
+			localStorage.setItem('dateSelected', dateSelected.toString());
+			window.location.href = "./contador.html";
+		};
+	</script>
+</body>
+</html>

@@ -1,4 +1,92 @@
-Contador
-Reiniciar
-Faltam
-Dias Horas Minutos Segundos
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Contador</title>
+	
+	<link rel="stylesheet" href="./styles/variables.css">
+	<link rel="stylesheet" href="./styles/contador.css">
+</head>
+<body>
+	<div class="container">
+		
+		<div class="header">
+			<h1>Contador</h1>
+			<button onclick="restart()">Reiniciar</button>
+		</div>
+		
+		<div class="content">
+			<h1>Faltam</h1>
+		
+			<div class="counter">
+				<div class="days content-counter">
+					<h1>0</h1>
+					<h4>Dias</h4>
+				</div>
+
+				<div class="hours content-counter">
+					<h1>0</h1>
+					<h4>Horas</h4>
+				</div>
+
+				<div class="minutes content-counter">
+					<h1>0</h1>
+					<h4>Minutos</h4>
+				</div>
+
+				<div class="seconds content-counter">
+					<h1>0</h1>
+					<h4>Segundos</h4>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		const restart = () => {
+			localStorage.removeItem('dateSelected');
+			window.location.href = './index.html';
+		};
+
+		const calc = () => {
+			const dateSelected = new Date(localStorage.getItem('dateSelected')).getTime() + (1000 * 60 * 60 * 3);
+			const content = document.querySelector('.container .content .counter');
+			const textDays = content.querySelector('.days h1');
+			const textHours = content.querySelector('.hours h1');
+			const textMinutes = content.querySelector('.minutes h1');
+			const textSeconds = content.querySelector('.seconds h1');
+			
+			const getValueDiff = (diff, mult) => {
+				let value =  Math.floor(Math.abs(diff / mult));
+				diff -= (mult * value);
+				return [value, diff];
+			};
+
+			setInterval(() => {
+				let dateNow = new Date().getTime();
+				let diff = Math.abs(dateNow - dateSelected) / 1000;
+				let days, hours, minutes, seconds;
+				
+				if(dateNow >= dateSelected) {
+					[days, hours, minutes, seconds] = [0, 0, 0, 0];
+					return;
+				}
+				
+				[days, diff] = getValueDiff(diff, 60 * 60 * 24);
+				[hours, diff] = getValueDiff(diff, 60 * 60);
+				[minutes, diff] = getValueDiff(diff, 60);
+				[seconds, diff] = getValueDiff(diff, 1);
+
+				textDays.textContent = days;
+				textHours.textContent = hours;
+				textMinutes.textContent = minutes;
+				textSeconds.textContent = seconds;
+			}, 1000);
+		};
+
+		calc();
+	</script>
+</body>
+</html>
